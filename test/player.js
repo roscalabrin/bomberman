@@ -1,5 +1,6 @@
 const assert = require('chai').assert
 const Player = require('./../lib/player')
+const canvas = { width: 1470, height: 770 }
 
 describe('Player', () => {
   context('properties', () => {
@@ -52,7 +53,7 @@ describe('Player', () => {
     })
 
     it('"moveRight" increases x by one', () => {
-      const bomber = new Player()
+      const bomber = new Player(30, 30, canvas)
       assert.equal(bomber.x, 30)
 
       bomber.moveRight()
@@ -60,7 +61,7 @@ describe('Player', () => {
     })
 
     it('"moveLeft" decreases x by one', () => {
-      const bomber = new Player()
+      const bomber = new Player(30, 30, canvas)
       assert.equal(bomber.x, 30)
 
       bomber.moveLeft()
@@ -68,19 +69,53 @@ describe('Player', () => {
     })
 
     it('"moveUp" decreases y by one', () => {
-      const bomber = new Player()
-      assert.equal(bomber.y, 30)
+      const bomber = new Player(30, 31, canvas)
+      assert.equal(bomber.y, 31)
 
       bomber.moveUp()
-      assert.equal(bomber.y, 29)
+      assert.equal(bomber.y, 30)
     })
 
     it('"moveDown" increases y by one', () => {
-      const bomber = new Player()
+      const bomber = new Player(30, 30, canvas)
       assert.equal(bomber.y, 30)
 
       bomber.moveDown()
       assert.equal(bomber.y, 31)
     })
   })
+  
+  context('movement boundaries', () => {
+    it('"moveRight" cannot move outside the canvas ', () => {
+      const bomber = new Player(1470, 770, canvas)
+      assert.equal(bomber.x, 1470)
+
+      bomber.moveRight()
+      assert.equal(bomber.x, 1470)
+    })
+    
+    it('"moveLeft" cannot move outside the canvas ', () => {
+      const bomber = new Player(50, 770, canvas)
+      assert.equal(bomber.x, 50)
+
+      bomber.moveLeft()
+      assert.equal(bomber.x, 50)
+    })
+    
+    it('"moveUp" cannot move outside the canvas ', () => {
+      const bomber = new Player(1470, 30, canvas)
+      assert.equal(bomber.y, 30)
+
+      bomber.moveUp()
+      assert.equal(bomber.x, 30)
+    })
+    
+    it('"moveDown" cannot move outside the canvas ', () => {
+      const bomber = new Player(30, 740, canvas)
+      assert.equal(bomber.x, 740)
+
+      bomber.moveDown()
+      assert.equal(bomber.x, 740)
+    })
+  })  
 })
