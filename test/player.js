@@ -21,10 +21,6 @@ describe('Player', () => {
   context('property values', () => {
     const context = stub().of('fillRect').of('clearRect')
     const bomber = new Player(null, null, canvas, context)
-    it('has starting default coordinates', () => {
-      assert.equal(bomber.x, 30)
-      assert.equal(bomber.y, 30)
-    })
 
     it('has starting default height and width', () => {
       assert.equal(bomber.height, 30)
