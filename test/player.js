@@ -16,6 +16,11 @@ describe('Player', () => {
       assert.property(bomber, 'height')
       assert.property(bomber, 'width')
     })
+
+    it('has a speed property', () => {
+      const bomber = new Player()
+      assert.property(bomber, 'speed')
+    })
   })
 
   context('property values', () => {
@@ -23,8 +28,12 @@ describe('Player', () => {
     const bomber = new Player(null, null, canvas, context)
 
     it('has starting default height and width', () => {
-      assert.equal(bomber.height, 30)
-      assert.equal(bomber.width, 50)
+      assert.equal(bomber.height, 35)
+      assert.equal(bomber.width, 35)
+    })
+
+    it('has a starting default speed', () => {
+      assert.equal(bomber.speed, 3)
     })
   })
 
@@ -90,34 +99,37 @@ describe('Player', () => {
 
   context('movement results', () => {
     const context = stub().of('fillRect').of('clearRect')
-    it('"moveRight" increases x by one', () => {
+    it('"moveRight" increases x by speed', () => {
       const bomber = new Player(30, 30, canvas, context)
       assert.equal(bomber.x, 30)
 
+      bomber.speed = 7
       bomber.moveRight()
-      assert.equal(bomber.x, 31)
+      assert.equal(bomber.x, 37)
     })
 
-    it('"moveLeft" decreases x by one', () => {
+    it('"moveLeft" decreases x by speed', () => {
       const bomber = new Player(51, 30, canvas, context)
       assert.equal(bomber.x, 51)
 
       bomber.moveLeft()
-      assert.equal(bomber.x, 50)
+      assert.equal(bomber.x, 48)
     })
 
-    it('"moveUp" decreases y by one', () => {
+    it('"moveUp" decreases y by speed', () => {
       const bomber = new Player(30, 31, canvas, context)
       assert.equal(bomber.y, 31)
 
+      bomber.speed = 4
       bomber.moveUp()
-      assert.equal(bomber.y, 30)
+      assert.equal(bomber.y, 27)
     })
 
-    it('"moveDown" increases y by one', () => {
+    it('"moveDown" increases y by speed', () => {
       const bomber = new Player(30, 30, canvas, context)
       assert.equal(bomber.y, 30)
 
+      bomber.speed = 1
       bomber.moveDown()
       assert.equal(bomber.y, 31)
     })
@@ -134,11 +146,11 @@ describe('Player', () => {
     })
 
     it('"moveLeft" cannot move outside the canvas ', () => {
-      const bomber = new Player(50, 770, canvas, context)
-      assert.equal(bomber.x, 50)
+      const bomber = new Player(0, 773, canvas, context)
+      assert.equal(bomber.x, 0)
 
       bomber.moveLeft()
-      assert.equal(bomber.x, 50)
+      assert.equal(bomber.x, 0)
     })
 
     it('"moveUp" cannot move outside the canvas ', () => {
