@@ -1,7 +1,9 @@
 const assert = require('chai').assert
 const Player = require('./../lib/player')
+const Game = require('./../lib/game')
 const stub = require('./support/stub')
 const canvas = { width: 1470, height: 770 }
+
 
 describe('Player', () => {
   context('properties', () => {
@@ -24,8 +26,7 @@ describe('Player', () => {
   })
 
   context('property values', () => {
-    const context = stub().of('fillRect').of('clearRect')
-    const bomber = new Player(null, null, canvas, context)
+    const bomber = new Player(null, null)
 
     it('has starting default height and width', () => {
       assert.equal(bomber.height, 35)
@@ -38,17 +39,21 @@ describe('Player', () => {
   })
 
   context('move method', () => {
-    const context = stub().of('fillRect').of('clearRect')
-    const bomber = new Player(null, null, canvas, context)
 
     it('should call fillRect on canvas', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(null, null, game)
       bomber.move()
-      assert.equal(bomber.context.fillRect.calls.length, 1)
+      assert.equal(game.context.fillRect.calls.length, 1)
     })
 
     it('should pass its values to fillRect', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(null, null, game)
       bomber.move()
-      const fillRectParams = bomber.context.fillRect.calls[0]
+      const fillRectParams = game.context.fillRect.calls[0]
       assert.equal(fillRectParams[0], bomber.x)
       assert.equal(fillRectParams[1], bomber.y)
       assert.equal(fillRectParams[2], bomber.width)
@@ -57,18 +62,22 @@ describe('Player', () => {
   })
 
   context('clear method', () => {
-    const context = stub().of('fillRect').of('clearRect')
-    const bomber = new Player(null, null, canvas, context)
 
     it('should call clearRect on canvas', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(null, null, game)
       bomber.clear()
-      const clearRectCalls = bomber.context.clearRect.calls
+      const clearRectCalls = game.context.clearRect.calls
       assert.equal(clearRectCalls.length, 1)
     })
 
     it('should pass properties to clearRect', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(null, null, game)
       bomber.clear()
-      const clearRectParams = bomber.context.clearRect.calls[0]
+      const clearRectParams = game.context.clearRect.calls[0]
       assert.equal(clearRectParams[0], bomber.x)
       assert.equal(clearRectParams[1], bomber.y)
       assert.equal(clearRectParams[2], bomber.width)
@@ -78,7 +87,8 @@ describe('Player', () => {
 
   context('movement', () => {
     const context = stub().of('fillRect').of('clearRect')
-    const bomber = new Player(null, null, canvas, context)
+    const game = new Game(canvas, context)
+    const bomber = new Player(null, null, game)
 
     it('has a function called "moveRight"', () => {
       assert.isFunction(bomber.moveRight)
@@ -98,9 +108,10 @@ describe('Player', () => {
   })
 
   context('movement results', () => {
-    const context = stub().of('fillRect').of('clearRect')
     it('"moveRight" increases x by speed', () => {
-      const bomber = new Player(30, 30, canvas, context)
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(30, 30, game)
       assert.equal(bomber.x, 30)
 
       bomber.speed = 7
@@ -109,7 +120,9 @@ describe('Player', () => {
     })
 
     it('"moveLeft" decreases x by speed', () => {
-      const bomber = new Player(51, 30, canvas, context)
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(51, 30, game)
       assert.equal(bomber.x, 51)
 
       bomber.moveLeft()
@@ -117,7 +130,9 @@ describe('Player', () => {
     })
 
     it('"moveUp" decreases y by speed', () => {
-      const bomber = new Player(30, 31, canvas, context)
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(30, 31, game)
       assert.equal(bomber.y, 31)
 
       bomber.speed = 4
@@ -126,7 +141,9 @@ describe('Player', () => {
     })
 
     it('"moveDown" increases y by speed', () => {
-      const bomber = new Player(30, 30, canvas, context)
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(30, 30, game)
       assert.equal(bomber.y, 30)
 
       bomber.speed = 1
@@ -137,8 +154,9 @@ describe('Player', () => {
 
   context('movement boundaries', () => {
     const context = stub().of('fillRect').of('clearRect')
+    const game = new Game(canvas, context)
     it('"moveRight" cannot move outside the canvas ', () => {
-      const bomber = new Player(1470, 770, canvas, context)
+      const bomber = new Player(1470, 770, game)
       assert.equal(bomber.x, 1470)
 
       bomber.moveRight()
@@ -146,7 +164,7 @@ describe('Player', () => {
     })
 
     it('"moveLeft" cannot move outside the canvas ', () => {
-      const bomber = new Player(0, 773, canvas, context)
+      const bomber = new Player(0, 773, game)
       assert.equal(bomber.x, 0)
 
       bomber.moveLeft()
@@ -154,7 +172,7 @@ describe('Player', () => {
     })
 
     it('"moveUp" cannot move outside the canvas ', () => {
-      const bomber = new Player(30, 30, canvas, context)
+      const bomber = new Player(30, 30, game)
       assert.equal(bomber.y, 30)
 
       bomber.moveUp()
@@ -162,7 +180,7 @@ describe('Player', () => {
     })
 
     it('"moveDown" cannot move outside the canvas ', () => {
-      const bomber = new Player(30, 740, canvas, context)
+      const bomber = new Player(30, 740, game)
       assert.equal(bomber.y, 740)
 
       bomber.moveDown()
