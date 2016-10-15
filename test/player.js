@@ -151,40 +151,4 @@ describe('Player', () => {
       assert.equal(bomber.y, 31)
     })
   })
-
-  context('movement boundaries', () => {
-    const context = stub().of('fillRect').of('clearRect')
-    const game = new Game(canvas, context)
-    it('"moveRight" cannot move outside the canvas ', () => {
-      const bomber = new Player(1470, 770, game)
-      assert.equal(bomber.x, 1470)
-
-      bomber.moveRight()
-      assert.equal(bomber.x, 1470)
-    })
-
-    it('"moveLeft" cannot move outside the canvas ', () => {
-      const bomber = new Player(0, 773, game)
-      assert.equal(bomber.x, 0)
-
-      bomber.moveLeft()
-      assert.equal(bomber.x, 0)
-    })
-
-    it('"moveUp" cannot move outside the canvas ', () => {
-      const bomber = new Player(30, 30, game)
-      assert.equal(bomber.y, 30)
-
-      bomber.moveUp()
-      assert.equal(bomber.x, 30)
-    })
-
-    it('"moveDown" cannot move outside the canvas ', () => {
-      const bomber = new Player(30, 740, game)
-      assert.equal(bomber.y, 740)
-
-      bomber.moveDown()
-      assert.equal(bomber.y, 740)
-    })
-  })
 })
