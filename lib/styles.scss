@@ -1,6 +1,24 @@
+$orange: #FF8C00;
+$green: #397F08;
+$white: #FFF;
+
+body {
+  background-color: $orange;
+}
+
+#game-stats {
+  margin: auto;
+  width: 40%;
+  text-align: center;
+}
+
 .game-canvas {
-  background-color: green;
+  background-color: $green;
   border: 1px dashed;
   margin: auto;
   display: block;
+}
+
+.hidden {
+  display: none;
 }
