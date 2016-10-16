@@ -151,4 +151,19 @@ describe('Player', () => {
       assert.equal(bomber.y, 31)
     })
   })
+
+  context('planting bombs', () => {
+    it('can plant a bomb', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const bomber = new Player(30, 30, game)
+
+      assert.equal(game.bombs.length, 0)
+
+      bomber.plantBomb()
+
+      assert.equal(game.bombs.length, 1)
+      assert.equal(context.fillRect.calls.length, 1)
+    })
+  })
 })
