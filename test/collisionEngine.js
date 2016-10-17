@@ -12,85 +12,98 @@ describe('CollisionEngine', () => {
   context('player cannot go through blocks', () => {
     const context = stub().of('fillRect').of('clearRect')
     const game = new Game(canvas, context)
+    game.loadBlocks()
+    const ce = new CollisionEngine(game)
     it('can detect if there is a block above', () => {
-      const bomber = new Player(30, 740, game)
-      assert.equal(bomber.y, 740)
+      const bomber = new Player(70, 140, game)
+      const blocksAbove = game.blocks.filter(ce.upCollide.bind(bomber))
 
-      bomber.moveDown()
-      assert.equal(bomber.y, 740)
+      assert.isAbove(blocksAbove.length, 0)
     })
 
     it('can detect if there is a block below', () => {
-      const bomber = new Player(30, 30, game)
-      assert.equal(bomber.y, 30)
+      const bomber = new Player(70, null, game)
+      const bomberY = 70 - bomber.height
+      bomber.y = bomberY
+      const blocksBelow = game.blocks.filter(ce.downCollide.bind(bomber))
 
-      bomber.moveUp()
-      assert.equal(bomber.x, 30)
+      assert.isAbove(blocksBelow.length, 0)
     })
 
     it('can detect if there is a block to the right', () => {
-      const bomber = new Player(1470, 770, game)
-      assert.equal(bomber.x, 1470)
+      const bomber = new Player(null, 70, game)
+      const bomberX = 70 - bomber.width
+      bomber.x = bomberX
+      const blocksRight = game.blocks.filter(ce.rightCollide.bind(bomber))
 
-      bomber.moveRight()
-      assert.equal(bomber.x, 1470)
-
+      assert.isAbove(blocksRight.length, 0)
     })
 
-    it('can detect if there is a block  to the left', () => {
-      const bomber = new Player(0, 773, game)
-      assert.equal(bomber.x, 0)
+    it('can detect if there is a block to the left', () => {
+      const bomber = new Player(null, 70, game)
+      const bomberX = 70 + game.blocks[0].width
+      bomber.x = bomberX
+      const blocksLeft = game.blocks.filter(ce.leftCollide.bind(bomber))
 
-      bomber.moveLeft()
-      assert.equal(bomber.x, 0)
+      assert.isAbove(blocksLeft.length, 0)
     })
   })
 
 
   context('player cannot go through bomb', () => {
-    const context = stub().of('fillRect').of('clearRect')
-    const game = new Game(canvas, context)
 
     it('can detect if bomb is below', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const ce = new CollisionEngine(game)
       const bomber = new Player(25, 25, game)
-      bomber.plantBomb()
-      const bomb = game.bombs[0]
+      const bomb = new Bomb(25, bomber.y + bomber.height, game)
+      game.bombs.push(bomb)
+      const bombsBelow = game.bombs.filter(ce.bombBelow.bind(bomber))
 
-      bomber.moveDown()
-      assert.equal(bomber.y, 25)
+      assert.equal(bombsBelow.length, 1)
     })
 
     it('can detect of bomb is to the right', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const ce = new CollisionEngine(game)
       const bomb = new Bomb(75, 25, game)
       const bomber = new Player(null, 25, game)
       const bomberX = bomb.x - bomber.width
       bomber.x = bomberX
       game.bombs.push(bomb)
+      const bombRight = game.bombs.filter(ce.bombRight.bind(bomber))
 
-      bomber.moveRight()
-      assert.equal(bomber.x, 40)
+      assert.equal(bombRight.length, 1)
     })
 
     it('can detect if bomb is above', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const ce = new CollisionEngine(game)
       const bomb = new Bomb(25, 25, game)
       const bomber = new Player(25, null, game)
       const bomberY = bomb.y + bomb.height
       bomber.y = bomberY
       game.bombs.push(bomb)
+      const bombsAbove = game.bombs.filter(ce.bombAbove.bind(bomber))
 
-      bomber.moveUp()
-      assert.equal(bomber.y, 40)
+      assert.equal(bombsAbove.length, 1)
     })
 
     it('can detect if bomb is to left', () => {
+      const context = stub().of('fillRect').of('clearRect')
+      const game = new Game(canvas, context)
+      const ce = new CollisionEngine(game)
       const bomb = new Bomb(25, 25, game)
       const bomber = new Player(null, 25, game)
       const bomberX = bomb.x + bomb.width
       bomber.x = bomberX
       game.bombs.push(bomb)
+      const bombLeft = game.bombs.filter(ce.bombLeft.bind(bomber))
 
-      bomber.moveLeft()
-      assert.equal(bomber.x, 40)
+      assert.equal(bombLeft.length, 1)
     })
   })
 
