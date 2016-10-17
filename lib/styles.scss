@@ -8,7 +8,7 @@ body {
 
 #game-stats {
   margin: auto;
-  width: 40%;
+  width: 100%;
   text-align: center;
 }
 
@@ -22,3 +22,23 @@ body {
 .hidden {
   display: none;
 }
+
+ul {
+  list-style-type: none;
+}
+
+li  {
+  display: inline;
+}
+
+.player-one-score {
+  float: left;
+  margin-left: 80px;
+  margin-bottom: 10px;
+}
+
+.player-two-score {
+  float: right;
+  margin-right: 120px;
+}
+
