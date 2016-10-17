@@ -8,7 +8,8 @@ describe('Score', () => {
   context('properties', () => {
     it('has a initial score for each player', () => {
       const initialScore = new Score()
-      assert.equal(initialScore.firstPlayerScore, 0)
-    }
-  }
-}
+      assert.equal(initialScore.firstPlayer, 0)
+      assert.equal(initialScore.secondPlayer, 0)
+    })
+  })
+})
