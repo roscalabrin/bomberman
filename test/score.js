@@ -11,5 +11,15 @@ describe('Score', () => {
       assert.equal(initialScore.firstPlayer, 0)
       assert.equal(initialScore.secondPlayer, 0)
     })
+
+    it('updates the score at the end of the game', () => {
+      const score = new Score()
+      assert.equal(score.firstPlayer, 0)
+      assert.equal(score.secondPlayer, 0)
+
+      score.setFinalScore('Player One', 90)
+      assert.equal(score.firstPlayer, 90)
+      assert.equal(score.secondPlayer, 0)
+    }) 
   })
 })
