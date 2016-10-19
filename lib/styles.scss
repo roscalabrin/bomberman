@@ -1,9 +1,13 @@
 $orange: #FF8C00;
 $green: #397F08;
 $white: #FFF;
+$black: #000;
+$grey: #212121;
 
 body {
-  background-color: $orange;
+  font-family: 'Space Mono', monospace;
+  color: $white;
+  background-color: $grey;
 }
 
 #game-stats {
