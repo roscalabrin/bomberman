@@ -23,10 +23,18 @@ body {
 }
 
 #instructions {
+  margin: auto;
+  width: 70%;
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
   background-color: $green;
+}
+
+#player-one-instructions {
+}
+
+#player-two-instructions {
 }
 
 .game-canvas {
@@ -48,11 +56,11 @@ li  {
   display: inline;
 }
 
-.player-one-score {
+#player-one-score {
   float: left;
 }
 
-.player-two-score {
+#player-two-score {
   float: right;
 
 }
