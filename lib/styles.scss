@@ -12,6 +12,12 @@ body {
   text-align: center;
 }
 
+#game-current-scores {
+  margin-right: 20%;
+  margin-left: 20%;
+  margin-bottom: 50px;
+}
+
 .game-canvas {
   background-color: $green;
   border: 1px dashed;
@@ -33,12 +39,10 @@ li  {
 
 .player-one-score {
   float: left;
-  margin-left: 80px;
-  margin-bottom: 10px;
 }
 
 .player-two-score {
   float: right;
-  margin-right: 120px;
+
 }
 
