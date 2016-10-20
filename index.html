@@ -10,26 +10,39 @@
   <div id="game-stats">
     <h1>Bomberman</h1>
     <button id="game-btn">Start Game</button>
+    <p id="highest-score"></p>
+    <p id="game-timer"></p>
+    <p id="quit-text" class="hidden">Press ESC to quit this game</p>
   </div>
   <div id="game-current-scores">
+    <ul class=game-scores">
+      <li id="player-one-score" class="hidden">Player One Score: 0<li>
+      <li id="player-two-score" class="hidden">Player Two Score: 0<li>
+    </ul>
   </div>
   <div id="instructions">
-    <h2>Instructions</h2>
-    <h3>Goal</h3>
-    <p>Defeat the other player.</p>
+    <h2>Your Goal is to defeat the other player.</h2>
+    <hr>
     <h3>How To Play</h3>
-    <p><strong>Player One:</strong></p>
-    <p>Press &rarr; to Move to the Right</p>
-    <p>Press &larr; to Move to the Left</p>
-    <p>Press &uarr; to Move to the Up</p>
-    <p>Press &darr; to Move to the Down</p>
-    <p>Press 'ALT' to Drop a Bomb</p>
-    <p><strong>Player Two:</strong></p>
-    <p>Press 'D' to Move to the Right</p>
-    <p>Press 'A' to Move to the Left</p>
-    <p>Press 'W' to Move to the Up</p>
-    <p>Press 'S' to Move to the Down</p>
-    <p>Press 'CAPS' to Drop a Bomb</p>
+    <div class="player-instructions">
+      <div id="player-one-intructions">
+        <p><strong>Player One:</strong></p>
+        <p>Press &rarr; to Move to the Right</p>
+        <p>Press &larr; to Move to the Left</p>
+        <p>Press &uarr; to Move to the Up</p>
+        <p>Press &darr; to Move to the Down</p>
+        <p>Press 'ALT' to Drop a Bomb</p>
+      </div>
+      <div id="player-two-instructions">
+        <p><strong>Player Two:</strong></p>
+        <p>Press 'D' to Move to the Right</p>
+        <p>Press 'A' to Move to the Left</p>
+        <p>Press 'W' to Move to the Up</p>
+        <p>Press 'S' to Move to the Down</p>
+        <p>Press 'CAPS' to Drop a Bomb</p>
+      </div>
+    </div>
+  <br>
   </div>
   <canvas id="game"
           class="game-canvas hidden"
