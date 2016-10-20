@@ -255,7 +255,7 @@
 	    this.width = 70;
 	    this.height = 70;
 	    this.game = game;
-	    this.image = './../assets/images/bomberman-5-blocks.png';
+	    this.image = 'assets/images/bomberman-5-blocks.png';
 	    this.primarySprite = { x: 146, y: 240, width: 14, height: 14 };
 	  }
 
@@ -278,7 +278,7 @@
 	class PlayerOne extends Player {
 	  constructor(x, y, game) {
 	    super(x, y, game);
-	    this.image = './../assets/images/SBM2-Bomberman.gif';
+	    this.image = 'assets/images/SBM2-Bomberman.gif';
 	    this.alive = true;
 	    this.primarySprite = { x: 107, y: 2, width: 16, height: 26 };
 	    this.rightSprite = { x: 88, y: 3, width: 19, height: 25 };
@@ -637,7 +637,7 @@
 	    this.height = 25;
 	    this.width = 25;
 	    this.fuseTime = 3000;
-	    this.image = './../assets/images/bomberman2_various_sheet.png';
+	    this.image = 'assets/images/bomberman2_various_sheet.png';
 	  }
 
 	  get centerX() {
@@ -837,7 +837,7 @@
 	  constructor(x, y, game, image) {
 	    super(x, y, game);
 	    this.speed = this.height;
-	    this.image = './../assets/images/bomberman-miscellaneous.png';
+	    this.image = 'assets/images/bomberman-miscellaneous.png';
 	    this.primarySprite = { x: 324, y: 85, width: 17, height: 17 };
 	    this.rightSprite = { x: 273, y: 120, width: 16, height: 16 };
 	    this.leftSprite = { x: 256, y: 120, width: 16, height: 16 };
@@ -1016,7 +1016,7 @@
 	class PlayerTwo extends Player {
 	  constructor(x, y, game) {
 	    super(x, y, game);
-	    this.image = './../assets/images/bomberman2_various_sheet.png';
+	    this.image = 'assets/images/bomberman2_various_sheet.png';
 	    this.alive === true;
 	    this.primarySprite = { x: 210, y: 0, width: 20, height: 21 };
 	    this.rightSprite = { x: 298, y: 56, width: 22, height: 26 };
@@ -1370,7 +1370,7 @@
 	class WaterBlock extends Block {
 	  constructor(x, y, game) {
 	    super(x, y, game);
-	    this.image = './../assets/images/bomberman-miscellaneous.png';
+	    this.image = 'assets/images/bomberman-miscellaneous.png';
 	    this.primarySprite = { x: 137, y: 18, width: 15, height: 15 };
 	  }
 	}
