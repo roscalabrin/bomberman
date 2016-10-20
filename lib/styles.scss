@@ -1,8 +1,11 @@
 $orange: #FF8C00;
 $green: #397F08;
+$green2: #006666;
 $white: #FFF;
 $black: #000;
 $grey: #212121;
+$blue: #0099FF;
+$pink: #FF0099;
 
 body {
   font-family: 'Space Mono', monospace;
@@ -28,7 +31,7 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
-  background-color: $green;
+  background-color: $green2;
 }
 
 #player-instructions {
@@ -40,7 +43,20 @@ body {
     -moz-column-gap: 20px;
 }
 
-#player-two-instructions {
+#game-normal-mode {
+  background-color: $blue;
+  color: $white;
+  border: 1px solid $blue;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#game-speed-mode {
+  background-color: $pink;
+  color: $white;
+  border: 1px solid $pink;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .game-canvas {
@@ -68,6 +84,5 @@ li  {
 
 #player-two-score {
   float: right;
-
 }
 
