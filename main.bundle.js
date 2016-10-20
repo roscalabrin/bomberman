@@ -44,10 +44,9 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
 	const canvas = document.getElementById('game');
 	const context = canvas.getContext('2d');
-	const Loader = __webpack_require__(5);
+	const Loader = __webpack_require__(1);
 
 	const normalBtn = document.getElementById('game-normal-mode');
 	const speedBtn = document.getElementById('game-speed-mode');
@@ -92,355 +91,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(2);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(4)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./styles.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./styles.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(3)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "body {\n  font-family: 'Space Mono', monospace;\n  color: #FFF;\n  background-color: #212121; }\n\n#game-stats {\n  margin: auto;\n  width: 100%;\n  text-align: center; }\n\n#game-current-scores {\n  margin-right: 20%;\n  margin-left: 20%;\n  margin-bottom: 50px; }\n\n#instructions {\n  margin: auto;\n  width: 70%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  text-align: center;\n  background-color: #006666; }\n\n#player-instructions {\n  -webkit-column-count: 2;\n  -moz-column-count: 2;\n  column-count: 2;\n  -webkit-column-gap: 20px;\n  column-gap: 20px;\n  -moz-column-gap: 20px; }\n\n#game-normal-mode {\n  background-color: #0099FF;\n  color: #FFF;\n  border: 1px solid #0099FF;\n  padding-top: 5px;\n  padding-bottom: 5px; }\n\n#game-speed-mode {\n  background-color: #FF0099;\n  color: #FFF;\n  border: 1px solid #FF0099;\n  padding-top: 5px;\n  padding-bottom: 5px; }\n\n.game-canvas {\n  background-color: #397F08;\n  border: 1px dashed;\n  margin: auto;\n  display: block; }\n\n.hidden {\n  display: none; }\n\nul {\n  list-style-type: none; }\n\nli {\n  display: inline; }\n\n#player-one-score {\n  float: left; }\n\n#player-two-score {\n  float: right; }\n\n#game-over {\n  padding-top: 40px;\n  text-align: center; }\n\n#next-game {\n  text-align: center; }\n\n.end-game {\n  opacity: 0.5; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-
-		update(obj);
-
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-
-	var replaceText = (function () {
-		var textStore = [];
-
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-
-		var blob = new Blob([css], { type: "text/css" });
-
-		var oldSrc = linkElement.href;
-
-		linkElement.href = URL.createObjectURL(blob);
-
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const Game = __webpack_require__(6);
+	const Game = __webpack_require__(2);
 
 	class Loader {
 	  constructor(canvas, context, level) {
@@ -483,19 +134,19 @@
 	module.exports = Loader;
 
 /***/ },
-/* 6 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const canvas = document.getElementById('game');
 	const context = canvas.getContext('2d');
-	const Block = __webpack_require__(7);
-	const PlayerOne = __webpack_require__(8);
-	const PlayerTwo = __webpack_require__(17);
-	const BreakableBlock = __webpack_require__(18);
-	const Timer = __webpack_require__(19);
-	const Score = __webpack_require__(20);
-	const DefaultMap = __webpack_require__(21);
-	const SmallMap = __webpack_require__(23);
+	const Block = __webpack_require__(3);
+	const PlayerOne = __webpack_require__(4);
+	const PlayerTwo = __webpack_require__(13);
+	const BreakableBlock = __webpack_require__(14);
+	const Timer = __webpack_require__(15);
+	const Score = __webpack_require__(16);
+	const DefaultMap = __webpack_require__(17);
+	const SmallMap = __webpack_require__(19);
 
 	class Game {
 	  constructor(canvas, context, level) {
@@ -594,7 +245,7 @@
 	module.exports = Game;
 
 /***/ },
-/* 7 */
+/* 3 */
 /***/ function(module, exports) {
 
 	class Block {
@@ -604,7 +255,7 @@
 	    this.width = 70;
 	    this.height = 70;
 	    this.game = game;
-	    this.image = './../images/bomberman-5-blocks.png';
+	    this.image = './../assets/images/bomberman-5-blocks.png';
 	    this.primarySprite = { x: 146, y: 240, width: 14, height: 14 };
 	  }
 
@@ -619,15 +270,15 @@
 	module.exports = Block;
 
 /***/ },
-/* 8 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Player = __webpack_require__(9);
+	const Player = __webpack_require__(5);
 
 	class PlayerOne extends Player {
 	  constructor(x, y, game) {
 	    super(x, y, game);
-	    this.image = './../images/SBM2-Bomberman.gif';
+	    this.image = './../assets/images/SBM2-Bomberman.gif';
 	    this.alive = true;
 	    this.primarySprite = { x: 107, y: 2, width: 16, height: 26 };
 	    this.rightSprite = { x: 88, y: 3, width: 19, height: 25 };
@@ -654,12 +305,12 @@
 	module.exports = PlayerOne;
 
 /***/ },
-/* 9 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const CollisionEngine = __webpack_require__(10);
-	const Bomb = __webpack_require__(11);
-	const SuperBomb = __webpack_require__(16);
+	const CollisionEngine = __webpack_require__(6);
+	const Bomb = __webpack_require__(7);
+	const SuperBomb = __webpack_require__(12);
 
 	class Player {
 	  constructor(x, y, game) {
@@ -781,7 +432,7 @@
 	module.exports = Player;
 
 /***/ },
-/* 10 */
+/* 6 */
 /***/ function(module, exports) {
 
 	class CollisionEngine {
@@ -971,11 +622,11 @@
 	module.exports = CollisionEngine;
 
 /***/ },
-/* 11 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Explosion = __webpack_require__(12);
-	const SuperExplosion = __webpack_require__(14);
+	const Explosion = __webpack_require__(8);
+	const SuperExplosion = __webpack_require__(10);
 
 	class Bomb {
 	  constructor(x, y, game) {
@@ -986,7 +637,7 @@
 	    this.height = 25;
 	    this.width = 25;
 	    this.fuseTime = 3000;
-	    this.image = './../images/bomberman2_various_sheet.png';
+	    this.image = './../assets/images/bomberman2_various_sheet.png';
 	  }
 
 	  get centerX() {
@@ -1028,11 +679,11 @@
 	module.exports = Bomb;
 
 /***/ },
-/* 12 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const CollisionEngine = __webpack_require__(10);
-	const FireBlock = __webpack_require__(13);
+	const CollisionEngine = __webpack_require__(6);
+	const FireBlock = __webpack_require__(9);
 
 	class Explosion {
 	  constructor(bombX, bombY, game) {
@@ -1177,16 +828,16 @@
 	module.exports = Explosion;
 
 /***/ },
-/* 13 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Block = __webpack_require__(7);
+	const Block = __webpack_require__(3);
 
 	class FireBlock extends Block {
 	  constructor(x, y, game, image) {
 	    super(x, y, game);
 	    this.speed = this.height;
-	    this.image = './../images/bomberman-miscellaneous.png';
+	    this.image = './../assets/images/bomberman-miscellaneous.png';
 	    this.primarySprite = { x: 324, y: 85, width: 17, height: 17 };
 	    this.rightSprite = { x: 273, y: 120, width: 16, height: 16 };
 	    this.leftSprite = { x: 256, y: 120, width: 16, height: 16 };
@@ -1206,12 +857,12 @@
 	module.exports = FireBlock;
 
 /***/ },
-/* 14 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const SuperFireBlock = __webpack_require__(15);
-	const Explosion = __webpack_require__(12);
-	const CollisionEngine = __webpack_require__(10);
+	const SuperFireBlock = __webpack_require__(11);
+	const Explosion = __webpack_require__(8);
+	const CollisionEngine = __webpack_require__(6);
 
 	class SuperExplosion extends Explosion {
 	  fillPrimaryRect() {
@@ -1323,10 +974,10 @@
 	module.exports = SuperExplosion;
 
 /***/ },
-/* 15 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const FireBlock = __webpack_require__(13);
+	const FireBlock = __webpack_require__(9);
 
 	class SuperFireBlock extends FireBlock {
 	  constructor(x, y, game) {
@@ -1340,10 +991,10 @@
 	module.exports = SuperFireBlock;
 
 /***/ },
-/* 16 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Bomb = __webpack_require__(11);
+	const Bomb = __webpack_require__(7);
 
 	class SuperBomb extends Bomb {
 	  constructor(x, y, game) {
@@ -1357,15 +1008,15 @@
 	module.exports = SuperBomb;
 
 /***/ },
-/* 17 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Player = __webpack_require__(9);
+	const Player = __webpack_require__(5);
 
 	class PlayerTwo extends Player {
 	  constructor(x, y, game) {
 	    super(x, y, game);
-	    this.image = './../images/bomberman2_various_sheet.png';
+	    this.image = './../assets/images/bomberman2_various_sheet.png';
 	    this.alive === true;
 	    this.primarySprite = { x: 210, y: 0, width: 20, height: 21 };
 	    this.rightSprite = { x: 298, y: 56, width: 22, height: 26 };
@@ -1392,10 +1043,10 @@
 	module.exports = PlayerTwo;
 
 /***/ },
-/* 18 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Block = __webpack_require__(7);
+	const Block = __webpack_require__(3);
 
 	class BreakableBlock extends Block {
 	  constructor(x, y, game) {
@@ -1411,7 +1062,7 @@
 	module.exports = BreakableBlock;
 
 /***/ },
-/* 19 */
+/* 15 */
 /***/ function(module, exports) {
 
 	class Timer {
@@ -1443,7 +1094,7 @@
 	module.exports = Timer;
 
 /***/ },
-/* 20 */
+/* 16 */
 /***/ function(module, exports) {
 
 	class Score {
@@ -1489,13 +1140,13 @@
 	module.exports = Score;
 
 /***/ },
-/* 21 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Block = __webpack_require__(7);
-	const Bomb = __webpack_require__(11);
-	const BreakableBlock = __webpack_require__(18);
-	const Map = __webpack_require__(22);
+	const Block = __webpack_require__(3);
+	const Bomb = __webpack_require__(7);
+	const BreakableBlock = __webpack_require__(14);
+	const Map = __webpack_require__(18);
 
 	class DefaultMap extends Map {
 	  updateBreakables(formerBreakableCount) {
@@ -1574,7 +1225,7 @@
 	module.exports = DefaultMap;
 
 /***/ },
-/* 22 */
+/* 18 */
 /***/ function(module, exports) {
 
 	class Map {
@@ -1610,13 +1261,13 @@
 	module.exports = Map;
 
 /***/ },
-/* 23 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Map = __webpack_require__(22);
-	const Block = __webpack_require__(7);
-	const Bomb = __webpack_require__(11);
-	const WaterBlock = __webpack_require__(24);
+	const Map = __webpack_require__(18);
+	const Block = __webpack_require__(3);
+	const Bomb = __webpack_require__(7);
+	const WaterBlock = __webpack_require__(20);
 
 	class SmallMap extends Map {
 	  constructor(game) {
@@ -1711,15 +1362,15 @@
 	module.exports = SmallMap;
 
 /***/ },
-/* 24 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Block = __webpack_require__(7);
+	const Block = __webpack_require__(3);
 
 	class WaterBlock extends Block {
 	  constructor(x, y, game) {
 	    super(x, y, game);
-	    this.image = './../images/bomberman-miscellaneous.png';
+	    this.image = './../assets/images/bomberman-miscellaneous.png';
 	    this.primarySprite = { x: 137, y: 18, width: 15, height: 15 };
 	  }
 	}
