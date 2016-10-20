@@ -103,47 +103,47 @@ describe('CollisionEngine', () => {
   })
 
   context('fire explosion cannot go through blocks', () => {
-    // const ce = new CollisionEngine()
-    // const context = stub().of('fillRect').of('clearRect')
-    // const game = new Game(canvas, context)
-    // it.skip('can detect if there is a block above', () => {
-    //   const block = new Block(25, 25, game)
-    //   const fBlock = new FireBlock(25, null, game)
-    //   const fBlockY = block.y + block.height
-    //   fBlock.y = fBlockY
-    //   const outcome = ce.blockAbove.call(fBlock, block)
+    const ce = new CollisionEngine()
+    const context = stub().of('fillRect').of('clearRect')
+    const game = new Game(canvas, context)
+    it('can detect if there is a block above', () => {
+      const block = new Block(25, 25, game)
+      const fBlock = new FireBlock(25, null, game)
+      const fBlockY = block.y + block.height
+      fBlock.y = fBlockY
+      const outcome = ce.blockAbove.call(fBlock, block)
 
-    //   assert.equal(outcome, true)
-    // })
+      assert.equal(outcome, true)
+    })
 
-    // it.skip('can detect if there is a block below', () => {
-    //   const block = new Block(25, 25, game)
-    //   const fBlock = new FireBlock(25, null, game)
-    //   const fBlockY = block.y - fBlock.height
-    //   fBlock.y = fBlockY
-    //   const outcome = ce.blockBelow.call(fBlock, block)
+    it('can detect if there is a block below', () => {
+      const block = new Block(25, 25, game)
+      const fBlock = new FireBlock(25, null, game)
+      const fBlockY = block.y - fBlock.height
+      fBlock.y = fBlockY
+      const outcome = ce.blockBelow.call(fBlock, block)
 
-    //   assert.equal(outcome, true)
-    // })
+      assert.equal(outcome, true)
+    })
 
-    // it.skip('can detect if there is a block to the right', () => {
-    //   const block = new Block(100, 25, game)
-    //   const fBlock = new FireBlock(null, 25, game)
-    //   const fBlockX = block.x - fBlock.width
-    //   fBlock.x = fBlockX
-    //   const outcome = ce.blockRight.call(fBlock, block)
+    it('can detect if there is a block to the right', () => {
+      const block = new Block(100, 25, game)
+      const fBlock = new FireBlock(null, 25, game)
+      const fBlockX = block.x - fBlock.width
+      fBlock.x = fBlockX
+      const outcome = ce.blockRight.call(fBlock, block)
 
-    //   assert.equal(outcome, true)
-    // })
+      assert.equal(outcome, true)
+    })
 
-    // it.skip('can detect if there is a block to the left', () => {
-    //   const block = new Block(100, 25, game)
-    //   const fBlock = new FireBlock(null, 25, game)
-    //   const fBlockX = block.x + block.width
-    //   fBlock.x = fBlockX
-    //   const outcome = ce.blockLeft.call(fBlock, block)
+    it('can detect if there is a block to the left', () => {
+      const block = new Block(100, 25, game)
+      const fBlock = new FireBlock(null, 25, game)
+      const fBlockX = block.x + block.width
+      fBlock.x = fBlockX
+      const outcome = ce.blockLeft.call(fBlock, block)
 
-    //   assert.equal(outcome, true)
-    // })
+      assert.equal(outcome, true)
+    })
   })
 })

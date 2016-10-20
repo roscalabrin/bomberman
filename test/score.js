@@ -20,6 +20,6 @@ describe('Score', () => {
       score.setFinalScore('Player One', 90)
       assert.equal(score.firstPlayer, 90)
       assert.equal(score.secondPlayer, 0)
-    }) 
+    })
   })
 })
