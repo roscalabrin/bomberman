@@ -1,16 +1,16 @@
-$orange: #FF8C00;
+/*$orange: #FF8C00;
 $green: #397F08;
 $green2: #006666;
 $white: #FFF;
 $black: #000;
 $grey: #212121;
 $blue: #0099FF;
-$pink: #FF0099;
+$pink: #FF0099;*/
 
 body {
   font-family: 'Space Mono', monospace;
-  color: $white;
-  background-color: $grey;
+  color: #FFF;
+  background-color: #212121;
 }
 
 #game-stats {
@@ -31,7 +31,7 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
-  background-color: $green2;
+  background-color: #006666;
 }
 
 #player-instructions {
@@ -44,23 +44,23 @@ body {
 }
 
 #game-normal-mode {
-  background-color: $blue;
-  color: $white;
-  border: 1px solid $blue;
+  background-color: #0099FF;
+  color: #FFF;
+  border: 1px solid #0099FF;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
 #game-speed-mode {
-  background-color: $pink;
-  color: $white;
-  border: 1px solid $pink;
+  background-color: #FF0099;
+  color: #FFF;
+  border: 1px solid #FF0099;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
 .game-canvas {
-  background-color: $green;
+  background-color: #397F08;
   border: 1px dashed;
   margin: auto;
   display: block;
