@@ -108,7 +108,7 @@ describe('Player', () => {
   })
 
   context('movement results', () => {
-    it.skip('"moveRight" increases x by speed', () => {
+    it('"moveRight" increases x by speed', () => {
       const context = stub().of('fillRect').of('clearRect')
       const game = new Game(canvas, context)
       const bomber = new Player(30, 30, game)
@@ -119,7 +119,7 @@ describe('Player', () => {
       assert.equal(bomber.x, 37)
     })
 
-    it.skip('"moveLeft" decreases x by speed', () => {
+    it('"moveLeft" decreases x by speed', () => {
       const context = stub().of('fillRect').of('clearRect')
       const game = new Game(canvas, context)
       const bomber = new Player(51, 30, game)
@@ -129,7 +129,7 @@ describe('Player', () => {
       assert.equal(bomber.x, 48)
     })
 
-    it.skip('"moveUp" decreases y by speed', () => {
+    it('"moveUp" decreases y by speed', () => {
       const context = stub().of('fillRect').of('clearRect')
       const game = new Game(canvas, context)
       const bomber = new Player(30, 31, game)
@@ -140,7 +140,7 @@ describe('Player', () => {
       assert.equal(bomber.y, 27)
     })
 
-    it.skip('"moveDown" increases y by speed', () => {
+    it('"moveDown" increases y by speed', () => {
       const context = stub().of('fillRect').of('clearRect')
       const game = new Game(canvas, context)
       const bomber = new Player(30, 30, game)
@@ -153,7 +153,7 @@ describe('Player', () => {
   })
 
   context('planting bombs', () => {
-    it.skip('can plant a bomb', () => {
+    it('can plant a bomb', () => {
       const context = stub().of('fillRect').of('clearRect')
       const game = new Game(canvas, context)
       const bomber = new Player(30, 30, game)
