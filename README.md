@@ -5,11 +5,8 @@ Bomberman is built using JavaScript and HTML5 canvas.
 It uses Mocha and Chai for testing.
 
 ##The Game
-Single player game with AI, and 3 difficulty levels.
-The goal of the game is to kill your opponent with a bomb.
-Both player and AI have unlimited number of bombs.
-The player has 3 minutes to defeat the AI. 
-
+2-player game with 2 levels of difficulty. Both players have an unlimited number of bombs and 100 seconds to defeat the opponent.
+ 
 To install the dependencies:
 
 ```
